@@ -1,0 +1,89 @@
+**********************************Query 1**********************************
+
+SELECT t0.Voucher_ID
+, t0.Voucher_Number
+, t0.Service_Date
+, t0.DateTime_Entered
+, t0.Date_Updated
+, t0.Date_Voided
+, t0.Billing_Date
+, t0.Original_Billing_Date
+, t0.Patient_ID
+, t0.Actual_Prov_Practitioner_ID
+, t0.Billing_Prov_Practitioner_ID
+, t0.Ref_Practitioner_ID, t0.Carrier_ID
+, t0.Original_Carrier_ID
+, t0.Patient_Policy_ID
+, t0.Original_Patient_Policy_ID
+, t0.Department_ID, t0.Location_ID
+, t0.Last_Modified_DateTime 
+FROM pm.VouchersBASE t0 
+WHERE Voucher_ID=156
+
+Base Table
+
+pm.VouchersBASE 
+
+Index Recommendation
+
+Clustered Index on Voucher_ID to cover the entire query
+
+**********************************Query 1**********************************
+
+SELECT t0.Service_ID
+, t0.Service_Date_From
+, t0.Service_Date_To
+, t0.Voucher_ID, t0.Place_of_Service_Abbr
+, t0.Procedure_Code
+, t0.Modifiers
+, t0.Service_Units
+, t0.Service_Fee
+, t0.Type_of_Service_Abbr 
+FROM pm.vwGenSvcInfoBASE t0  
+WHERE ( t0.Voucher_ID = 156 )
+
+Base Table
+
+pm.vwGenSvcInfoBASE
+
+Index Recommendation
+
+Clustered Index on Service_ID with an optional Non clustered index with VOucher_ID and Service_ID as key columns
+
+
+**********************************Query 3**********************************
+
+
+SELECT t0.Service_Payment_ID
+, t0.Amount
+, t0.Service_ID
+, t0.Reference
+, t0.Transaction_Type
+, t0.Transaction_Code_Abbr
+, t0.Transaction_Code_Descr
+, t0.Date_Entered
+, t0.Date_Voided
+, t0.Posting_Date
+, t0.Remitting_Carrier_ID
+, t0.Remitting_Carrier_Name
+, t0.Current_Carrier_ID
+, t0.Current_Carrier_Name
+, t0.Batch_Number
+, t0.Allowed
+, t0.Deductible
+, t0.CoPayment
+, t0.CoInsurance
+, t0.EOB_Date
+, t0.Pending 
+FROM pm.vwGenSvcPmtInfoBASE t0  
+WHERE ( t0.Service_ID = 217 ) ORDER BY Service_ID ASC
+
+Base Table
+
+pm.vwGenSvcPmtInfoBASE
+
+Index Recommendation
+
+Clustered Index with Service_Payment_ID
+
+Add Service_ID to the existing non clustered index

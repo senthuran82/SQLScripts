@@ -1,0 +1,8 @@
+$CleanupTime = [DateTime]::UtcNow.AddHours(-288)
+$storageAccessKey = "9AgTXER6FcB1orFnMb+4w6j4DCmojrkgbMiTiaBmjsz73Pjm1NsB7cCeht2D6IrC5J19yzOFcmHmr+73qyfcyQ=="
+$context = New-AzureStorageContext -StorageAccountName 'scsqlbackup' -StorageAccountKey $storageAccessKey
+Get-AzureStorageBlob -Container 'sqlbackup' -Context $context | Where-Object { $_.LastModified.UtcDateTime -lt 
+$CleanupTime -and $_.BlobType -eq "PageBlob" -and $_.Name -like "*.bak"} | Remove-AzureStorageBlob
+$CleanupTime = [DateTime]::UtcNow.AddHours(-288)
+Get-AzureStorageBlob -Container "sqlbackup" -Context $context | Where-Object { $_.LastModified.UtcDateTime -lt 
+$CleanupTime -and $_.BlobType -eq "PageBlob" -and $_.Name -like "*.log"} | Remove-AzureStorageBlob

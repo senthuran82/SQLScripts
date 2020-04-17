@@ -1,0 +1,3 @@
+SELECT [name] as stat_name, OBJECT_NAME(OBJECT_ID) AS table_object_name,  STATS_DATE(object_id, stats_id) AS last_update_date--, *
+FROM sys.stats
+WHERE OBJECT_NAME(OBJECT_ID) NOT LIKE 'sys%'
